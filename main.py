@@ -2,35 +2,38 @@ import sys
 import spotipy
 import spotipy.util as util
 
-from pprint import pprint
+if __name__ == '__main__':
+    username = sys.argv[1]
+    scope = 'playlist-modify-private user-library-read'
 
-# User ID = renierbotha
-username = sys.argv[1]
-scope = 'playlist-modify-private'
+    token = util.prompt_for_user_token(username, scope=scope)
 
-token = util.prompt_for_user_token(username, scope=scope)
+    if token:
 
-if token:
+        sp = spotipy.Spotify(auth=token)
 
-    sp = spotipy.Spotify(auth=token)
+        dw_id = None
 
-    dw_id = None
+        # Get user playlists
+        playlists = sp.user_playlists(username)
 
-    playlists = sp.user_playlists(username)
-    for item in playlists['items'][:10]:
-        if item['name'] == 'Discover Weekly':
-            dw_id = item['id']
+        for item in playlists['items']:
+            if item['name'] == 'Discover Weekly':
+                dw_id = item['id']
 
-    if not dw_id:
-        raise ValueError('Discover Weekly ID could not be found - make sure to set it to public')
+        if not dw_id:
+            raise ValueError('Discover Weekly ID could not be found - make sure to set it to public')
 
-    dw_tracks = sp.user_playlist_tracks(username, dw_id)
+        # Get discover weekly tracks
+        dw_tracks = sp.user_playlist_tracks(username, dw_id)
 
-    pprint(dw_tracks['items'][0])
+        # Get discover weekly track IDs
+        dw_track_ids = [item['track']['id'] for item in dw_tracks['items']]
 
+        # Check which tracks are saved in user library
+        is_saved = sp.current_user_saved_tracks_contains(tracks=dw_track_ids)
 
-    sp.current_user_saved_tracks_contains()
+        # For each track that is saved, try adding to desired playlist
 
-
-else:
-    print('Authorization failed')
+    else:
+        print('Authorization failed')
