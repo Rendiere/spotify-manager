@@ -1,1 +1,1 @@
-worker: python main.py renierbotha test
+web: python main.py renierbotha test
