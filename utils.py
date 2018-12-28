@@ -14,7 +14,6 @@ def check_cache(username):
     filename = f'.cache-{username}'
 
     if 'SPOTIPY_CACHE' in os.environ:
-
         logging.info('Found cache in env variables')
 
         cache = os.environ.get('SPOTIPY_CACHE')
@@ -22,6 +21,28 @@ def check_cache(username):
         with open(filename, 'w') as fh:
             logging.info('Dumped cache to {}'.format(filename))
             fh.write(cache)
+
+
+def get_playlist_tracks(sp, username, playlist_id):
+    '''
+
+    Get all the tracks in a users playlist.
+
+    Concatenates tracks for playlists longer than 100 tracks.
+
+    :param username:
+    :param playlist_id:
+    :return:
+    '''
+
+    results = sp.user_playlist_tracks(username, playlist_id)
+    tracks = results['items']
+
+    while results['next']:
+        results = sp.next(results)
+        tracks.extend(results['items'])
+
+    return tracks
 
 
 def prompt_for_playlist(playlists):

@@ -31,10 +31,6 @@ def main():
     # Get user playlists
     playlists = sp.user_playlists(username)
 
-    # If destination playlist name was not passed as argument, prompt to choose one
-    if not playlist_name:
-        playlist_name = util.prompt_for_playlist(playlists)
-
     # Get destination playlist id
     dest_playlist_id = util.get_dest_playlist_id(playlist_name, playlists)
 
@@ -44,8 +40,9 @@ def main():
     dw_track_ids = util.tracks_to_ids(dw_tracks)
 
     while True:
-
         # Get the tracks in destination playlist
+        # TODO - update to get all tracks using:
+        #         dest_playlist_tracks = util.get_playlist_tracks(sp, username, dest_playlist_id)
         dest_playlist_tracks = sp.user_playlist_tracks(username, dest_playlist_id)
         dest_track_ids = util.tracks_to_ids(dest_playlist_tracks)
 
