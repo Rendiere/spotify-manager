@@ -1,3 +1,4 @@
+import os
 import sys
 import time
 import logging
@@ -7,13 +8,12 @@ import utils as util
 
 logging.basicConfig(level=logging.INFO)
 
-
 def main():
-    username = sys.argv[1]
-    if len(sys.argv) > 2:
-        playlist_name = sys.argv[2]  # name of playlist to move liked songs to
-    else:
-        playlist_name = None
+
+    username = os.environ.get('SPOTIPY_USERNAME')
+    playlist_name = os.environ.get("SPOTIPY_PLAYLIST")
+
+    util.check_cache(username)
 
     # TODO: review bare minimum scope
     scope = 'playlist-modify playlist-modify-public user-library-read playlist-modify-private'

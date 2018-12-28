@@ -1,4 +1,27 @@
+import os
+import json
 import logging
+
+
+def check_cache(username):
+    """
+    Check for cache on the environment variables.
+    If it exists, write the cache to disk
+    if it does not exist there already.
+    :return: -
+    """
+
+    filename = f'.cache-{username}'
+
+    if 'SPOTIPY_CACHE' in os.environ:
+
+        logging.info('Found cache in env variables')
+
+        cache = os.environ.get('SPOTIPY_CACHE')
+        if not os.path.isfile(filename):
+            with open(filename, 'w') as fh:
+                logging.info('Dumped cache to {}'.format(filename))
+                json.dump(cache, fh)
 
 
 def prompt_for_playlist(playlists):
