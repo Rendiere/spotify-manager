@@ -19,10 +19,9 @@ def check_cache(username):
 
         cache = os.environ.get('SPOTIPY_CACHE')
 
-        if not os.path.isfile(filename):
-            with open(filename, 'w') as fh:
-                logging.info('Dumped cache to {}'.format(filename))
-                fh.write(cache)
+        with open(filename, 'w') as fh:
+            logging.info('Dumped cache to {}'.format(filename))
+            fh.write(cache)
 
 
 def prompt_for_playlist(playlists):

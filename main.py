@@ -13,6 +13,9 @@ def main():
     username = os.environ.get('SPOTIPY_USERNAME')
     playlist_name = os.environ.get("SPOTIPY_PLAYLIST")
 
+    assert username is not None, 'username not found in env variables'
+    assert playlist_name is not None, 'playlist not found in env variables'
+
     util.check_cache(username)
 
     # TODO: review bare minimum scope
