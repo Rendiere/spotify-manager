@@ -18,10 +18,11 @@ def check_cache(username):
         logging.info('Found cache in env variables')
 
         cache = os.environ.get('SPOTIPY_CACHE')
+
         if not os.path.isfile(filename):
             with open(filename, 'w') as fh:
                 logging.info('Dumped cache to {}'.format(filename))
-                json.dump(cache, fh)
+                fh.write(cache)
 
 
 def prompt_for_playlist(playlists):
