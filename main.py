@@ -59,7 +59,7 @@ def main():
             logging.info('Adding {} tracks to {}'.format(len(tracks_to_add), playlist_name))
             sp.user_playlist_add_tracks(username, dest_playlist_id, tracks_to_add)
         else:
-            logging.info('No new liked tracks found')
+            logging.info('No new liked tracks found.')
 
         # Sleep for 1 second
         time.sleep(1)
