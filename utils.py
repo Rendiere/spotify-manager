@@ -73,11 +73,13 @@ def get_dest_playlist_id(playlist_name: str, playlists: list):
 
 
 def get_dw_id(playlists: list):
-    '''
-    Get discvoer weekly ID
+    """
+    Get discvoer weekly ID from list of playlists
+
     :param playlists:
     :return: string
-    '''
+    """
+
     dw_id = None
     for i, item in enumerate(playlists['items']):
         if item['name'] == 'Discover Weekly':
@@ -89,5 +91,5 @@ def get_dw_id(playlists: list):
     return dw_id
 
 
-def tracks_to_ids(tracks):
-    return [item['track']['id'] for item in tracks['items']]
+def tracks_to_ids(tracks: list):
+    return [item['track']['id'] for item in tracks]
