@@ -67,7 +67,7 @@ def get_dest_playlist_id(playlist_name: str, playlists: list):
             playlist_id = item['id']
 
     if not playlist_id:
-        raise ValueError('Chosen playlist was not found')
+        raise ValueError(f'Chosen playlist "{playlist_name}" was not found')
 
     return playlist_id
 
