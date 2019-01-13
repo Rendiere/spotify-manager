@@ -6,6 +6,8 @@ import spotipy
 import spotipy.util as sputil
 import utils as util
 
+from dotenv import load_dotenv
+
 logging.basicConfig(level=logging.INFO)
 
 def main():
@@ -66,4 +68,5 @@ def main():
 
 
 if __name__ == '__main__':
+    load_dotenv()
     main()
