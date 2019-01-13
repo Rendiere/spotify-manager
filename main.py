@@ -36,14 +36,16 @@ def main():
 
     # Get discover weekly track IDs
     dw_id = util.get_dw_id(playlists)
-    dw_tracks = sp.user_playlist_tracks(username, dw_id)
+    dw_tracks_info = sp.user_playlist_tracks(username, dw_id)
+    dw_tracks = dw_tracks_info['items']
+
     dw_track_ids = util.tracks_to_ids(dw_tracks)
 
     while True:
         # Get the tracks in destination playlist
         # TODO - update to get all tracks using:
         #         dest_playlist_tracks = util.get_playlist_tracks(sp, username, dest_playlist_id)
-        dest_playlist_tracks = sp.user_playlist_tracks(username, dest_playlist_id)
+        dest_playlist_tracks = util.get_playlist_tracks(sp, username, dest_playlist_id)
         dest_track_ids = util.tracks_to_ids(dest_playlist_tracks)
 
         # Check which tracks are saved in user library
@@ -57,7 +59,7 @@ def main():
             logging.info('Adding {} tracks to {}'.format(len(tracks_to_add), playlist_name))
             sp.user_playlist_add_tracks(username, dest_playlist_id, tracks_to_add)
         else:
-            logging.info('No new liked tracks found')
+            logging.info('No new liked tracks found.')
 
         # Sleep for 1 second
         time.sleep(1)
