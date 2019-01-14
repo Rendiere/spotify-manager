@@ -1,6 +1,8 @@
 # Spotify Playlist Manager
 
-_Automatically move liked songs from Discover weekly, to a specified playlist_
+_Automatically add liked songs from Discover weekly to a specified playlist_
+
+This work was inspired by Zach Johnson's [blog post](https://www.zachjohnsondev.com/posts/managing-spotify-library/), where he did something similar, just a tad fancier.
 
 ## Setup
 
@@ -87,5 +89,22 @@ I chose to use Heroku for deploying this app, and will assume you've created and
 Using the Heroku dashboard, create a new app and follow the deploy instructions. You should be doing the following steps:
 
 1. Create a remote to the repo: `heroku git:remote -a <YOUR HEROKU APP NAME>`
-2. Push the code to Heroku: `git push heroku master`
-3. View the logs to see the app running: `heroku logs --tail`
+2. Set the config variables (in `.env`) on heroku using a custom script*: `python heroku_config.py` 
+3. Push the code to Heroku: `git push heroku master`
+4. View the logs to see the app running: `heroku logs --tail`
+
+\* Note, you can set all the variables manually using the heroku dashboard. This is also a great way to change the destination playlist later on.
+
+
+## Try it out
+
+Go ahead and "love" a song on your Discover Weekly and see it pop up in your desired playlist.
+
+
+**TODOs**
+
+* Write unittests
+* Integrate tests into setup
+* Better deployment strategy - Lambda etc
+* Server to handle login first login
+* 
