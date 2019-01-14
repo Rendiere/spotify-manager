@@ -10,8 +10,8 @@ from dotenv import load_dotenv
 
 logging.basicConfig(level=logging.INFO)
 
-def main():
 
+def main():
     username = os.environ.get('SPOTIPY_USERNAME')
     playlist_name = os.environ.get("SPOTIPY_PLAYLIST")
 
