@@ -10,15 +10,16 @@ from dotenv import load_dotenv
 
 logging.basicConfig(level=logging.INFO)
 
-# Run every 6 hours
-FREQ = 60 * 60 * 6
-
 def main():
     username = os.environ.get('SPOTIPY_USERNAME')
     playlist_name = os.environ.get("SPOTIPY_PLAYLIST")
+    freq_hours = os.environ.get('FREQUENCY')
 
     assert username is not None, 'username not found in env variables'
     assert playlist_name is not None, 'playlist not found in env variables'
+    assert freq_hours is not None, 'frequency not found in env variables'
+
+    freq = 3600 * int(freq_hours)
 
     util.check_cache(username)
 
@@ -64,7 +65,7 @@ def main():
             logging.info('No new liked tracks found.')
 
         # Sleep for 1 second
-        time.sleep(FREQ)
+        time.sleep(freq)
 
 
 if __name__ == '__main__':
