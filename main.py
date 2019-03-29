@@ -10,6 +10,8 @@ from dotenv import load_dotenv
 
 logging.basicConfig(level=logging.INFO)
 
+# Run every 6 hours
+FREQ = 60 * 60 * 6
 
 def main():
     username = os.environ.get('SPOTIPY_USERNAME')
@@ -45,8 +47,6 @@ def main():
 
     while True:
         # Get the tracks in destination playlist
-        # TODO - update to get all tracks using:
-        #         dest_playlist_tracks = util.get_playlist_tracks(sp, username, dest_playlist_id)
         dest_playlist_tracks = util.get_playlist_tracks(sp, username, dest_playlist_id)
         dest_track_ids = util.tracks_to_ids(dest_playlist_tracks)
 
@@ -64,7 +64,7 @@ def main():
             logging.info('No new liked tracks found.')
 
         # Sleep for 1 second
-        time.sleep(1)
+        time.sleep(FREQ)
 
 
 if __name__ == '__main__':
